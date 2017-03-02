@@ -16,7 +16,7 @@ services:
       - tracker
     network_mode: host
     environment:
-      - TRACKER_SERVER=10.162.100.42:22122
+      - TRACKER_SERVER=218.244.146.47:22122
     # ports:
     #   - 23000:23000
     #   - 8888:8888
