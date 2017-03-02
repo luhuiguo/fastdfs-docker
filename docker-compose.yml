@@ -1,0 +1,24 @@
+version: '3'
+services:
+  tracker:
+    container_name: tracker
+    image: luhuiguo/fastdfs
+    ports:
+      - 2222:22122
+      - 2080:8080
+    volumes:
+      - ~/Documents/tracker:/var/fdfs
+    # network_mode: host   
+  storage:
+    container_name: storage
+    image: luhuiguo/fastdfs
+    depends_on:
+      - tracker
+    # network_mode: host
+    environment:
+      - TRACKER_SERVER=10.1.90.2:2222
+    ports:
+      - 2300:23000
+      - 2088:8888
+    volumes:
+      - ~/Documents/storage:/var/fdfs        
