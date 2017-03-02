@@ -1,24 +1,36 @@
 version: '3'
 services:
-  tracker:
-    container_name: tracker
+  tracker1:
+    container_name: tracker1
     image: luhuiguo/fastdfs
+    command: tracker
+    network_mode: host
+    environment:
+      - PORT=2222   
     # ports:
     #   - 22122:22122
     #   - 8080:8080
     volumes:
-      - /var/fdfs/tracker:/var/fdfs
-    network_mode: host   
-  storage:
-    container_name: storage
+      # - /opt/fdfs/conf/tracker1:/etc/fdfs      
+      # - /var/fdfs/tracker1:/var/fdfs
+      - ~/Documents/fastdfs_conf/tracker1:/etc/fdfs      
+      - ~/Documents/fastdfs_data/tracker1:/var/fdfs      
+  storage1:
+    container_name: storage1
     image: luhuiguo/fastdfs
-    depends_on:
-      - tracker
+    command: storage
     network_mode: host
+    depends_on:
+      - tracker1    
     environment:
-      - TRACKER_SERVER=218.244.146.47:22122
+      - PORT=3333 
+      - TRACKER_SERVER=10.1.90.2:2222
+      - GROUP_NAME=test
     # ports:
     #   - 23000:23000
     #   - 8888:8888
     volumes:
-      - /var/fdfs/storage:/var/fdfs        
+      # - /opt/fdfs/conf/storage1:/etc/fdfs  
+      # - /var/fdfs/storage1:/var/fdfs
+      - ~/Documents/fastdfs_conf/storage1:/etc/fdfs      
+      - ~/Documents/fastdfs_data/storage1:/var/fdfs                

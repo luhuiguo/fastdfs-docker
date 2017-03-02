@@ -1,16 +1,26 @@
 #!/bin/bash
 #set -e
 
-if [ -z "$TRACKER_SERVER" ] ; then  
+if [ "$1" = "storage" ] ; then
+FASTDFS_MODE="storage"
+else 
+FASTDFS_MODE="tracker"
+fi
 
-FASTDFS_MODE=tracker
-sed -e "s|/home/yuqing/fastdfs|${FASTDFS_BASE_PATH}|g" /etc/fdfs/tracker.conf.sample > /etc/fdfs/tracker.conf
+if [ -n "$PORT" ] ; then  
+sed -i "s|^port=.*$|port=${PORT}|g" /etc/fdfs/"$FASTDFS_MODE".conf
+fi
 
-else   
+if [ -n "$TRACKER_SERVER" ] ; then  
 
-FASTDFS_MODE=storage
-sed -e "s|/home/yuqing/fastdfs|${FASTDFS_BASE_PATH}|g" -e "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/storage.conf.sample > /etc/fdfs/storage.conf
-sed -e "s|/home/yuqing/fastdfs|${FASTDFS_BASE_PATH}|g" -e "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/client.conf.sample > /etc/fdfs/client.conf
+sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/storage.conf
+sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/client.conf
+
+fi
+
+if [ -n "$GROUP_NAME" ] ; then  
+
+sed -i "s|group_name=.*$|group_name=${GROUP_NAME}|g" /etc/fdfs/storage.conf
 
 fi 
 

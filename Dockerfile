@@ -4,7 +4,11 @@ LABEL maintainer "luhuiguo@gmail.com"
 
 ENV FASTDFS_PATH=/opt/fdfs \
     FASTDFS_BASE_PATH=/var/fdfs \
+    PORT= \
+    GROUP_NAME= \
     TRACKER_SERVER=
+
+  
 
 #get all the dependences
 RUN yum install -y git gcc make
@@ -13,6 +17,8 @@ RUN yum install -y git gcc make
 RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
  && mkdir -p ${FASTDFS_PATH}/fastdfs \
  && mkdir ${FASTDFS_BASE_PATH}
+
+VOLUME ["$FASTDFS_BASE_PATH", "/etc/fdfs"]   
 
 #compile the libfastcommon
 WORKDIR ${FASTDFS_PATH}/libfastcommon
@@ -31,13 +37,9 @@ RUN git clone --depth=1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PA
  && rm -rf ${FASTDFS_PATH}/fastdfs
 
 
-#modify config
-# RUN sed -e 's#/home/yuqing/fastdfs#'${FASTDFS_BASE_PATH}'#g' /etc/fdfs/tracker.conf.sample > /etc/fdfs/tracker.conf
-# RUN sed -e 's#/home/yuqing/fastdfs#'${FASTDFS_BASE_PATH}'#g' -e 's#tracker_server=.*$#tracker_server='${TRACKER_SERVER}'#g' /etc/fdfs/storage.conf.sample > /etc/fdfs/storage.conf
-# RUN sed -e 's#/home/yuqing/fastdfs#'${FASTDFS_BASE_PATH}'#g' -e 's#tracker_server=.*$#tracker_server='${TRACKER_SERVER}'#g' /etc/fdfs/client.conf.sample > /etc/fdfs/client.conf
+EXPOSE 22122 23000 8080 8888 2222 3333
 
-VOLUME ["$FASTDFS_BASE_PATH"] 
-EXPOSE 22122 23000 8080 8888
+COPY conf/*.* /etc/fdfs/
 
 COPY start.sh /usr/bin/
 
@@ -45,3 +47,4 @@ COPY start.sh /usr/bin/
 RUN chmod 777 /usr/bin/start.sh
 
 ENTRYPOINT ["/usr/bin/start.sh"]
+CMD ["tracker"]
