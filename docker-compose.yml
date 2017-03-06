@@ -7,30 +7,30 @@ services:
     network_mode: host
     environment:
       - PORT=2222   
-    # ports:
-    #   - 22122:22122
-    #   - 8080:8080
     volumes:
-      # - /opt/fdfs/conf/tracker1:/etc/fdfs      
-      # - /var/fdfs/tracker1:/var/fdfs
-      - ~/Documents/fastdfs_conf/tracker1:/etc/fdfs      
-      - ~/Documents/fastdfs_data/tracker1:/var/fdfs      
+      - /opt/fdfs/conf/tracker1:/etc/fdfs      
+      - /var/fdfs/tracker1:/var/fdfs    
   storage1:
     container_name: storage1
     image: luhuiguo/fastdfs
     command: storage
-    network_mode: host
-    depends_on:
-      - tracker1    
+    network_mode: host  
+    environment:
+      - TRACKER_SERVER=10.1.53.102:2222
+      - GROUP_NAME=test
+    volumes:
+      - /opt/fdfs/conf/storage1:/etc/fdfs  
+      - /var/fdfs/storage1:/var/fdfs  
+  storage2:
+    container_name: storage2
+    image: luhuiguo/fastdfs
+    command: storage
+    network_mode: host  
     environment:
       - PORT=3333 
-      - TRACKER_SERVER=10.1.90.2:2222
+      - TRACKER_SERVER=10.1.53.102:2222
       - GROUP_NAME=test
-    # ports:
-    #   - 23000:23000
-    #   - 8888:8888
     volumes:
-      # - /opt/fdfs/conf/storage1:/etc/fdfs  
-      # - /var/fdfs/storage1:/var/fdfs
-      - ~/Documents/fastdfs_conf/storage1:/etc/fdfs      
-      - ~/Documents/fastdfs_data/storage1:/var/fdfs                
+      - /opt/fdfs/conf/storage2:/etc/fdfs  
+      - /var/fdfs/storage2:/var/fdfs
+                    

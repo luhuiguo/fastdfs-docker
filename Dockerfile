@@ -18,8 +18,6 @@ RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
  && mkdir -p ${FASTDFS_PATH}/fastdfs \
  && mkdir ${FASTDFS_BASE_PATH}
 
-VOLUME ["$FASTDFS_BASE_PATH", "/etc/fdfs"]   
-
 #compile the libfastcommon
 WORKDIR ${FASTDFS_PATH}/libfastcommon
 
@@ -38,6 +36,7 @@ RUN git clone --depth=1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PA
 
 
 EXPOSE 22122 23000 8080 8888 2222 3333
+VOLUME ["$FASTDFS_BASE_PATH", "/etc/fdfs"]   
 
 COPY conf/*.* /etc/fdfs/
 
