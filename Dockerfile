@@ -21,7 +21,7 @@ RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
 #compile the libfastcommon
 WORKDIR ${FASTDFS_PATH}/libfastcommon
 
-RUN git clone --depth=1 https://github.com/happyfish100/libfastcommon.git ${FASTDFS_PATH}/libfastcommon \
+RUN git clone --branch V1.0.35 --depth 1 https://github.com/happyfish100/libfastcommon.git ${FASTDFS_PATH}/libfastcommon \
  && ./make.sh \
  && ./make.sh install \
  && rm -rf ${FASTDFS_PATH}/libfastcommon
@@ -29,13 +29,13 @@ RUN git clone --depth=1 https://github.com/happyfish100/libfastcommon.git ${FAST
 #compile the fastdfs
 WORKDIR ${FASTDFS_PATH}/fastdfs
 
-RUN git clone --depth=1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
+RUN git clone --branch V5.09 --depth 1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
  && ./make.sh \
  && ./make.sh install \
  && rm -rf ${FASTDFS_PATH}/fastdfs
 
 
-EXPOSE 22122 23000 8080 8888 2222 3333
+EXPOSE 22122 23000 8080 8888
 VOLUME ["$FASTDFS_BASE_PATH", "/etc/fdfs"]   
 
 COPY conf/*.* /etc/fdfs/
