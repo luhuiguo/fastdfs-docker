@@ -34,35 +34,35 @@ fi
 # start the fastdfs node.	
 fdfs_${FASTDFS_MODE}d /etc/fdfs/${FASTDFS_MODE}.conf start
 
-# wait for pid file(important!),the max start time is 5 seconds,if the pid number does not appear in 5 seconds,storage start failed.
+# wait for pid file(important!),the max start time is 5 seconds,if the pid number does not appear in 5 seconds,start failed.
 TIMES=5
-while [ ! -f "$STORAGE_PID_NUMBER" -a $TIMES -gt 0 ]
+while [ ! -f "$PID_NUMBER" -a $TIMES -gt 0 ]
 do
     sleep 1s
 	TIMES=`expr $TIMES - 1`
 done
 
-# # if the storage node start successfully, print the started time.
-# if [ $TIMES -gt 0 ]; then
-#     echo "the ${FASTDFS_MODE} node started successfully at $(date +%Y-%m-%d_%H:%M)"
+# if the storage node start successfully, print the started time.
+if [ $TIMES -gt 0 ]; then
+    echo "the ${FASTDFS_MODE} node started successfully at $(date +%Y-%m-%d_%H:%M)"
 	
-# 	# give the detail log address
-#     echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
+	# give the detail log address
+    echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
 
-#     # leave balnk lines to differ from next log.
-#     echo
-#     echo
+    # leave balnk lines to differ from next log.
+    echo
+    echo
 
     
 	
-# 	# make the container have foreground process(primary commond!)
-#     tail -F --pid=`cat $STORAGE_PID_NUMBER` /dev/null
-# # else print the error.
-# else
-#     echo "the ${FASTDFS_MODE} node started failed at $(date +%Y-%m-%d_%H:%M)"
-# 	echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
-# 	echo
-#     echo
-# fi
+	# make the container have foreground process(primary commond!)
+    tail -F --pid=`cat $PID_NUMBER` /dev/null
+# else print the error.
+else
+    echo "the ${FASTDFS_MODE} node started failed at $(date +%Y-%m-%d_%H:%M)"
+	echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
+	echo
+    echo
+fi
 
-tail -f "$FASTDFS_LOG_FILE"
+# tail -f "$FASTDFS_LOG_FILE"
