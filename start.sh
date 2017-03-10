@@ -43,26 +43,26 @@ do
 done
 
 # if the storage node start successfully, print the started time.
-if [ $TIMES -gt 0 ]; then
-    echo "the ${FASTDFS_MODE} node started successfully at $(date +%Y-%m-%d_%H:%M)"
+# if [ $TIMES -gt 0 ]; then
+#     echo "the ${FASTDFS_MODE} node started successfully at $(date +%Y-%m-%d_%H:%M)"
 	
-	# give the detail log address
-    echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
+# 	# give the detail log address
+#     echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
 
-    # leave balnk lines to differ from next log.
-    echo
-    echo
+#     # leave balnk lines to differ from next log.
+#     echo
+#     echo
 
     
 	
-	# make the container have foreground process(primary commond!)
-    tail -F --pid=`cat $PID_NUMBER` /dev/null
-# else print the error.
-else
-    echo "the ${FASTDFS_MODE} node started failed at $(date +%Y-%m-%d_%H:%M)"
-	echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
-	echo
-    echo
-fi
+# 	# make the container have foreground process(primary commond!)
+#     tail -F --pid=`cat $PID_NUMBER` /dev/null
+# # else print the error.
+# else
+#     echo "the ${FASTDFS_MODE} node started failed at $(date +%Y-%m-%d_%H:%M)"
+# 	echo "please have a look at the log detail at $FASTDFS_LOG_FILE"
+# 	echo
+#     echo
+# fi
 
-# tail -f "$FASTDFS_LOG_FILE"
+tail -f "$FASTDFS_LOG_FILE"
