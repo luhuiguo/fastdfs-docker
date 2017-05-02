@@ -29,7 +29,7 @@ RUN git clone --branch V1.0.35 --depth 1 https://github.com/happyfish100/libfast
 #compile the fastdfs
 WORKDIR ${FASTDFS_PATH}/fastdfs
 
-RUN git clone --branch V5.09 --depth 1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
+RUN git clone --branch V5.10 --depth 1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
  && ./make.sh \
  && ./make.sh install \
  && rm -rf ${FASTDFS_PATH}/fastdfs
