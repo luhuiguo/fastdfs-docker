@@ -1,10 +1,15 @@
 #!/bin/bash
 #set -e
-
-if [ "$1" = "storage" ] ; then
-FASTDFS_MODE="storage"
+if [ "$1" = "monitor" ] ; then
+  if [ -n "$TRACKER_SERVER" ] ; then  
+    sed -i "s|tracker_server=.*$|tracker_server=${TRACKER_SERVER}|g" /etc/fdfs/client.conf
+  fi
+  fdfs_monitor /etc/fdfs/client.conf
+  exit 0
+elif [ "$1" = "storage" ] ; then
+  FASTDFS_MODE="storage"
 else 
-FASTDFS_MODE="tracker"
+  FASTDFS_MODE="tracker"
 fi
 
 if [ -n "$PORT" ] ; then  
@@ -64,5 +69,4 @@ done
 # 	echo
 #     echo
 # fi
-
 tail -f "$FASTDFS_LOG_FILE"

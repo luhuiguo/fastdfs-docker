@@ -21,7 +21,7 @@ RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
 #compile the libfastcommon
 WORKDIR ${FASTDFS_PATH}/libfastcommon
 
-RUN git clone --branch V1.0.35 --depth 1 https://github.com/happyfish100/libfastcommon.git ${FASTDFS_PATH}/libfastcommon \
+RUN git clone --branch V1.0.36 --depth 1 https://github.com/happyfish100/libfastcommon.git ${FASTDFS_PATH}/libfastcommon \
  && ./make.sh \
  && ./make.sh install \
  && rm -rf ${FASTDFS_PATH}/libfastcommon
@@ -29,7 +29,7 @@ RUN git clone --branch V1.0.35 --depth 1 https://github.com/happyfish100/libfast
 #compile the fastdfs
 WORKDIR ${FASTDFS_PATH}/fastdfs
 
-RUN git clone --branch V5.10 --depth 1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
+RUN git clone --branch V5.11 --depth 1 https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
  && ./make.sh \
  && ./make.sh install \
  && rm -rf ${FASTDFS_PATH}/fastdfs
