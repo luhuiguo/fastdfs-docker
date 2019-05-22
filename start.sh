@@ -69,4 +69,7 @@ done
 # 	echo
 #     echo
 # fi
-tail -f "$FASTDFS_LOG_FILE"
+
+if [ -f "$FASTDFS_LOG_FILE" ]; then 
+	tail -f "$FASTDFS_LOG_FILE"
+fi
